@@ -3,10 +3,10 @@ name: Build
 on: 
   push:
     branches:
-      - staging
+      - master
   pull_request:
     branches:
-      - staging
+      - master
 
 
 jobs:
