@@ -1,0 +1,37 @@
+name: Build
+
+on: 
+  push:
+    branches:
+      - staging
+  pull_request:
+    branches:
+      - staging
+
+
+jobs:
+  build-and-test:
+    name: "Build and Test"
+    runs-on: ubuntu-latest
+    steps:
+      # -
+      #   name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v1
+
+      # -
+      #   name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v1        
+
+      -
+        name: Build and tag container
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: Dockerfile
+          push: false
+          tags: almir-school/node-web-app:latest
+
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }} 
